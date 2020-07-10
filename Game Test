@@ -1,0 +1,120 @@
+
+money = 0
+day = 1
+items = []
+
+
+def gameplay():
+    global items
+    global money
+    global day
+    energy = 10
+    work = 0
+    while True:
+        print("Type 'help' for assistance")
+        play = str(input("-> ")).strip()
+        if play.lower() == "help":
+            print("""
+Type :   To :                                         Cost:
+'Work'    Get Money (only once then next day)          5 Energy 
+'Mall'    Buy Stuff                                    5 Energy 
+'Items'   Check Inventory                              N/A
+'Money'   Check Balance Of Money                       N/A
+'Energy'  Check Balance Of Energy                      N/A
+'Day'     Check your day, day 1 , day 2 etc.           N/A
+'Done'    End Your Day                                 N/A    """)
+        elif play.lower() == "work":
+            if work == 1:
+                print("You have already worked!")
+            else:
+                energy -= 5
+                print("Working......")
+                money += 5
+                work += 1
+                print("You now have $%s and %s Energy" % (money, energy))
+        elif play.lower() == "mall":
+            energy -= 5
+            while True:
+                print("What do you want to do?")
+                print("""
+Type :   To:                                     Cost:
+Coffee   Buy Normal Coffee : +2 energy next day   $4
+Lottery  Buy A Lottery Ticket (per day)           $10
+Money    Check Balance Of Money                   N/A
+Energy   Check Balance Of Energy                  N/A
+Items    Check Your Inventory                     N/A
+Exit     Exit the shopping mall                   N/A
+                """)
+                mall = input("-> ").strip()
+                if mall.lower() == "coffee":
+                    if "coffee" in list:
+                        print("You have already bought a cup of coffee!")
+                    elif money < 4:
+                        print("You don't have enough money!")
+                    else:
+                        print("You bought a coffee")
+                        items.append("coffee")
+                        print(items)
+                if mall.lower() == "lottery":
+                    if "Lottery Ticket" in list:
+                        print("You have already bought a ticket! Try again next day!")
+                    lot = random.randint(1, 20)
+                    jack = random.randint(100, 1000)
+                    while True:
+                        if money < 10:
+                            print("You don't have enough money!")
+                            break
+                        else:
+                            list.append("Lottery Ticket")
+                            money -= 10
+                            print("Choose a number between 1 to 20")
+                            try:
+                                lotg = int(input("-> "))
+                                if lotg == lot:
+                                    print("Congratulations you have won $%s" % (jack))
+                                    money += jack
+                                    break
+                                elif lotg != lot:
+                                    print("Sorry but you lost! Good luck Next Time")
+                                    break
+                            except ValueError:
+                                print("Please Type A Number")
+                elif mall.lower() == "money":
+                    print("You currently have $%s" % (money))
+                elif mall.lower() == "energy":
+                    print("You currently have %s" % (energy))
+                elif mall.lower() == "items":
+                    print("These are your following items:")
+                    print(items)
+                elif mall.lower() == "exit":
+                    print("Exiting mall......")
+                    break
+        elif play.lower() == "items":
+            print("These are your following items:")
+            print(items)
+        elif play.lower() == "money":
+            print("You currently have $%s" % (money))
+        elif play.lower() == "energy":
+            print("You currently have %s" % (energy))
+        elif play.lower() == "day" :
+            print("Its Day %s " % (day))
+        elif play.lower() == "done":
+            while True:
+                print("Are You Sure?")
+                sure = str(input("-> "))
+                if sure.lower() not in ["yes","no"]:
+                    print("Please Type Yes Or No ")
+                elif sure.lower() == "yes":
+                    print("Going Home For Next Day........")
+                    home()
+                elif sure.lower() == "no":
+                    print("Okay!")
+                    break
+
+
+def noenergy():
+    print("You don't have enough energy to do that")
+
+def home():
+    print("You are at home..")
+gameplay()
